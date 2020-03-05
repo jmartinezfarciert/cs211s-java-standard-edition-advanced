@@ -43,21 +43,21 @@ public class IncDecButton extends Application
 		mainVBox.getChildren().add(counterText);
 		
 		incButton = new Button(" + ");
-		incButton.setOnAction(this::processButtons);
+		incButton.setOnAction(this::handleIncrement);
 		
 		decButton = new Button(" - ");
-		decButton.setOnAction(this::processButtons);
+		decButton.setOnAction(this::handleIncrement);
 		
 		//Hbox for buttons
 		HBox buttonHBox = new HBox(decButton, incButton); 
 		buttonHBox.setAlignment(Pos.CENTER);
-		buttonHBox.setSpacing(10);
+		buttonHBox.setSpacing(12);
 		mainVBox.getChildren().add(buttonHBox);
 		
 		// TextField for increment value
 		intervalField = new TextField("1");
 		intervalField.setMaxWidth(50);
-		intervalField.setOnAction(this::processTextField);
+		intervalField.setOnAction(this::handleIncrement);
 		
 		//Label for increment value text field
 		intervalLabel = new Label("interval : ");
@@ -73,16 +73,13 @@ public class IncDecButton extends Application
 		primaryStage.show();
 	}
 	
-	private void processTextField(ActionEvent e)
-	{
-		interval = Integer.parseInt(intervalField.getText());
-	}
 	
-	private void processButtons(ActionEvent e)
+	private void handleIncrement(ActionEvent e)
 	{
 		interval = Integer.parseInt(intervalField.getText());
 
 		// info contained inside ActionEvent object
+		// if method is triggered by user of the text field if else wont change anything
 		if( e.getSource() == incButton)
 		{
 			counter += interval;
