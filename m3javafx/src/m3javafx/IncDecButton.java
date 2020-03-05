@@ -18,7 +18,7 @@ public class IncDecButton extends Application
 {
 	//instance data and controllers
 	private Text counterText;
-	private Button incButton, decButton, intervalButton;
+	private Button incButton, decButton;
 	private int counter, interval;
 	private TextField intervalField;
 	private Label intervalLabel;
@@ -58,10 +58,6 @@ public class IncDecButton extends Application
 		intervalField = new TextField("1");
 		intervalField.setMaxWidth(50);
 		intervalField.setOnAction(this::processTextField);
-		//Button for TextField
-		intervalButton = new Button("change interval");
-		intervalButton.setOnAction(this::processTextField);
-		
 		
 		//Label for increment value text field
 		intervalLabel = new Label("interval : ");
@@ -71,8 +67,6 @@ public class IncDecButton extends Application
 		HBox intervalBox = new HBox(intervalLabel, intervalField);
 		intervalBox.setAlignment(Pos.CENTER);
 		mainVBox.getChildren().add(intervalBox);
-		//Button display
-		mainVBox.getChildren().add(intervalButton);
 		
 		Scene scene = new Scene(mainVBox, 200, 200);
 		primaryStage.setScene(scene);
@@ -86,6 +80,8 @@ public class IncDecButton extends Application
 	
 	private void processButtons(ActionEvent e)
 	{
+		interval = Integer.parseInt(intervalField.getText());
+
 		// info contained inside ActionEvent object
 		if( e.getSource() == incButton)
 		{
