@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -17,12 +19,16 @@ public class IncDecButton extends Application
 	//instance data and controllers
 	private Text counterText;
 	private Button incButton, decButton;
-	private int counter;
+	private int counter, interval;
+	private TextField intervalField;
+	private Label intervalLabel;
+	private int increment;
 	
 	public void start(Stage primaryStage)
 	{
 		// intializing instance data
 		counter = 0;
+		interval = 1;
 		
 		// Vbox for program
 		VBox mainVBox = new VBox();
@@ -30,38 +36,56 @@ public class IncDecButton extends Application
 		mainVBox.setAlignment(Pos.CENTER);
 		mainVBox.setSpacing(10);
 		
+		//Counter 
 		counterText = new Text("0");
-		counterText.setFont(Font.font("Helvetica", 26));
+		counterText.setFont(Font.font("Helvetica", 30));
 		counterText.setFill(Color.BLACK);
 		mainVBox.getChildren().add(counterText);
 		
 		incButton = new Button(" + ");
-		incButton.setOnAction(this::processButtons);
+		incButton.setOnAction(this::handleIncrement);
 		
 		decButton = new Button(" - ");
-		decButton.setOnAction(this::processButtons);
+		decButton.setOnAction(this::handleIncrement);
 		
 		//Hbox for buttons
 		HBox buttonHBox = new HBox(decButton, incButton); 
-		buttonHBox.setStyle("-fx-background-color: cadetBlue");
 		buttonHBox.setAlignment(Pos.CENTER);
-		buttonHBox.setSpacing(10);
+		buttonHBox.setSpacing(12);
 		mainVBox.getChildren().add(buttonHBox);
+		
+		// TextField for increment value
+		intervalField = new TextField("1");
+		intervalField.setMaxWidth(50);
+		intervalField.setOnAction(this::handleIncrement);
+		
+		//Label for increment value text field
+		intervalLabel = new Label("interval : ");
+		intervalLabel.setFont(Font.font("Helvetica", 16));
+		
+		//Hbox for increment textField
+		HBox intervalBox = new HBox(intervalLabel, intervalField);
+		intervalBox.setAlignment(Pos.CENTER);
+		mainVBox.getChildren().add(intervalBox);
 		
 		Scene scene = new Scene(mainVBox, 200, 200);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 	
-	private void processButtons(ActionEvent e)
+	
+	private void handleIncrement(ActionEvent e)
 	{
+		interval = Integer.parseInt(intervalField.getText());
+
 		// info contained inside ActionEvent object
+		// if method is triggered by user of the text field if else wont change anything
 		if( e.getSource() == incButton)
 		{
-			counter ++;
-		} else 
+			counter += interval;
+		} else if(e.getSource() == decButton)
 		{
-			counter --;
+			counter -= interval;
 		}
 		counterText.setText(String.valueOf(counter));
 	}
