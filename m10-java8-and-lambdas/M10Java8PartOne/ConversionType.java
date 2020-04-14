@@ -1,4 +1,4 @@
-public enum ConversionType {
+ public enum ConversionType {
     
     POUNDS_TO_OUNCES (16, "Pounds to Ounces"), 
     OUNCES_TO_POUNDS(0.0625, "Ounces to Pounds"), 
