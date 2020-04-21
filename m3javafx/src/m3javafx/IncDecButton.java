@@ -22,7 +22,6 @@ public class IncDecButton extends Application
 	private int counter, interval;
 	private TextField intervalField;
 	private Label intervalLabel;
-	private int increment;
 	
 	public void start(Stage primaryStage)
 	{
